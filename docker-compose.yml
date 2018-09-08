@@ -119,7 +119,7 @@ services:
         context: ./php-fpm
         args:
           - LARADOCK_PHP_VERSION=${PHP_VERSION}
-          - INSTALL_XDEBUG=true
+          - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
           - INSTALL_PHPDBG=${PHP_FPM_INSTALL_PHPDBG}
           - INSTALL_BLACKFIRE=${INSTALL_BLACKFIRE}
           - INSTALL_SSH2=${PHP_FPM_INSTALL_SSH2}
