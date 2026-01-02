@@ -307,19 +307,6 @@ services:
       links:
         - docker-in-docker
       restart: always
-  ### swoole hyperf ############################################
-    hyperf:
-      build:
-        context: ./hyperf
-      volumes:
-        - ${APP_CODE_PATH_HOST}/skeleton:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
-      ports:
-        - "9501:9501"
-        - "9502:9502"
-      networks:
-        - backend
-      tty: true
-      restart: always
     ### consul ############################################
     consul:
       image: consul:1.9.9
