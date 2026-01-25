@@ -199,7 +199,7 @@ services:
         - backend
       links:
         - docker-in-docker
-      restart: always
+#      restart: always
 ### PHP-FPM ##############################################
     php-fpm:
       build:
@@ -286,7 +286,7 @@ services:
       volumes:
         - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
-        - docker-in-docker:/certs/client
+#        - docker-in-docker:/certs/client
       ports:
         - "${PHP_FPM_XDEBUG_PORT}:9003"
       expose:
@@ -295,17 +295,13 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
-        - DOCKER_HOST=tcp://docker-in-docker:2376
-        - DOCKER_TLS_VERIFY=1
-        - DOCKER_TLS_CERTDIR=/certs
-        - DOCKER_CERT_PATH=/certs/client
         - FAKETIME=${PHP_FPM_FAKETIME}
-      depends_on:
-        - workspace
+#      depends_on:
+#        - workspace
       networks:
         - backend
-      links:
-        - docker-in-docker
+#      links:
+#        - docker-in-docker
       restart: always
     ### consul ############################################
     consul:
@@ -346,7 +342,7 @@ services:
         - MYSQL_SERVICE_DB_NAME=nacos_config
         - MYSQL_SERVICE_USER=root
         - MYSQL_SERVICE_PASSWORD=root
-        - NACOS_CORE_API_COMPATIBILITY_ADMIN_ENABLED=true  #该参数在Nacos 3.1.1中默认为false，启用后可兼容旧版API请求。设置没生效
+        - NACOS_CORE_API_COMPATIBILITY_ADMIN_ENABLED=true  #该参数在Nacos 3.1.1中默认为false，启用后可兼容旧版API请求。设置没生效在容器中设置才可以
       ports:
         - "8088:8080"  # Nacos Web端口映射 mac主机8080被占用了
         - "8848:8848"
@@ -1269,7 +1265,7 @@ services:
         - "${GRAFANA_PORT}:3000"
       networks:
         - backend
-
+      restart: always
 ### Graylog #######################################
     graylog:
       build: ./graylog
@@ -1586,7 +1582,7 @@ services:
         - 2375
       networks:
         - backend
-      restart: always
+#      restart: always
 ### NetData ################################################
     netdata:
       image: netdata/netdata:latest
